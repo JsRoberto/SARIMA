@@ -9,6 +9,21 @@
 # Definindo pacotes não padrões a serem utilizados 
 suppressMessages(library(gridExtra))
 
+#Baixar os arquivos "mitdb_ecgSignals.csv" e "fs.csv" - caso ainda não tenham sido.
+Url <- 
+      c("https://raw.githubusercontent.com/JsRoberto/SARIMA/master/projSARIMA.R"
+        ,"https://raw.githubusercontent.com/JsRoberto/SARIMA/master/modelSARIMA.R"
+        ,"https://raw.githubusercontent.com/JsRoberto/SARIMA/master/ggPlotSARIMA.R")
+Local <- c("projSARIMA.R","modelSARIMA.R","ggPlotSARIMA.R")
+
+download <- function(Local, Url) {
+      if (!file.exists(Local)) {
+            download.file(Url, Local)
+      }
+}
+
+mapply(download, Local, Url)
+
 #--------------------------------------------------------------------------
 #                       Fase de Identificação - 1ª Etapa
 #--------------------------------------------------------------------------
