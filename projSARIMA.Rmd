@@ -1,0 +1,134 @@
+---
+title: Aplicação de Modelagem SARIMA
+author:
+  - name: José Roberto Sobrinho Lima
+    email: jsroberto.slima@gmail.com
+    affiliation: Universidade Federal do Pará
+    footnote: Corresponding Author
+  - name: Mateus da Mota Cardoso da Cruz
+    email: mateus@example.com
+    affiliation: Universidade Federal do Pará
+  - name: Luana Gonçalvez
+    email: luana@example.com
+    affiliation: Universidade Federal do Pará
+  - name: Caio Bentes Sanches
+    email: caio@example.com
+    affiliation: Universidade Federal do Pará
+address:
+  - code: Universidade Federal do Pará
+    address: Instituto de Tecnologia, Rua Augusto Corrêa, 1 - Guamá, Belém - PA, 66075-110
+keywords: modelagem, sarima, residuos, autocorrelação
+abstract: This is the abstract. \newline It consists of two paragraphs.
+bibliography: mybibfile.bib
+output: rticles::elsevier_article
+linkcolor: cyan
+---
+
+1. Introdução   
+=============
+
+A análise de séries temporais é uma das principais áreas de aplicação da
+estatística. A finalidade mais proeminente ao se analisar um conjunto de
+dados é extrair deles características estatísticas que apresentem
+relevância e acurácia na tentativa de predizer valores futuros da série.  
+
+Exstem duas maneiras de lidar com séries temporais: aplicar técnicas no
+domínio do tempo ou no domínio frequência. Focaremos em aplicações no
+domínio do tempo, mediante a investigação da autocorrelação das séries, em
+especial o uso do método de Box-Jenkins para previsão das séries.  
+
+Este procedimento estima e prevê valores para uma série temporal $Z_t$
+representando-a como um modelo linear geral, ou seja, uma combinação linear
+ponderada dos termos atual e pretéritos do ruído branco[^1]^,[^2].
+
+[^1]: Um _ruído branco_ $a_t$ é uma sequência de variáveis aleatórias
+independentes e identicamente distribuídas, com $E(a_t)=0$ e variância
+constante $\sigma_a^2$, $\forall t \in \mathbb{Z}$.  
+
+[^2]: A série temporal sendo definida como
+$Z_t=a_t+\psi_1a_{t-1}+\psi_2a_{t-2}+\cdots$, onde
+$\sum_{i=1}^{\infty}{\psi_i^2}<\infty$.  
+
+Como revelado anteriormente, o método de Box-Jenkins consiste em investigar
+as autocorrelações das séries temporais. Contudo, essa análise somente se
+faz válida quando a série é estacionária[^3].  
+
+[^3]: Conceito de estacionariedade...
+
+A abordagem pelo modelo ARMA (_Auto-Regressivo e Médias Móveis_)[^4] é
+simultaneamente consistente com o método de Box-Jenkins e também apropriada
+para descrever séries temporais estacionárias. Contudo, a maioria das
+séries temporais que analisamos é não-estacionária.
+
+[^4]: Os modelos $\mathrm{ARMA}(p,q)$ representam a série $Z_t$ em termos
+de seus valores defasados (termos _Auto-Regressivos_), bem como em termos
+de combinações lineares de variáveis aleatórias de um ruído branco
+(_Médias Móveis_). Então, a série estimada $\tilde{Z}_t$ por um processo 
+$\mathrm{ARMA}(p,q)$ é representada por $\phi(B)\tilde{Z}_t=\theta(B)a_t$,
+onde $\phi(B)=1-\phi B-\cdots -\phi_pB^p$ é o operador auto-regressivo,
+$\theta(B)=1-\theta B-\cdots -\theta_qB^q$ é o operador médias móveis e $B$
+é operador atraso, definido por $Z_{t-n}=B^nZ_t$.  
+
+Em primeiro lugar, cabe ressaltar que existem alguns tipos diferentes de
+não-estacionariedade: 
+
+(1) Quanto ao nível e/ou à tendência, pode ser resolvida com algumas
+diferenças simples[^5].
+
+[^5]: Uma diferença simples é definida por $W_t=\Delta Z_t=(1-B)Z_t$.
+Porém, diversas vezes é necessário realizar $d$ diferenças em sequência,
+produzindo a nova série $W_t=\Delta^dZ_t=(1-B)^dZ_t$.  
+
+(2) Quanto à variância, pode ser resolvida por uma transformação de
+Box-Cox[^6].
+
+[^6]: Falar brevemente sobre a transformação de _Box-Cox_ ...  
+
+Todavia, em virtude da natureza dos fenômenos que elas registram, algumas
+séries possuem componentes sazonais em seus comportamentos. Isso gera um
+novo nível de complexidade ao modelo... **OBS.: É NECESSÁRIO FALAR SOBRE SAZONALIDADE E "DEMONSTRAR" A EXPRESSÃO GERAL DO MODELO**
+$\mathrm{SARIMA}(p,d,q)\times(P,D,Q)_s$.    
+
+Para fazermos a estimação e previsão pelo modelo proposto, escolhemos uma
+série não-estacionária -- tanto pela tendência quanto pela variância -- que
+apresentasse características sazonais. A série escolhida se encontra no
+pacote _R_ [fpp](https://cran.r-project.org/web/packages/fpp/fpp.pdf)[^7].
+O objeto _**usmelec**_, da classe _ts_, armazena os registros mensais da
+geração total de energia elétrica nos EUA em bilhões de quilowatts-hora (ou
+Terawatts-hora tWh).  
+
+[^7]: O pacote **fpp** armazena todos os conjuntos de dados necessários
+para executar os exemplos e exercícios do livro "Forecasting: principles
+and practice", de Rob J Hyndman e George Athanasopoulos.  
+
+Para realizarmos a modelagem e plotarmos os gráficos obtidos, distibuimos 
+os códigos-fontes gerados em três arquivos: [projSARIMA.R](), [modelSARIMA.R]() e [ggPlotSARIMA.R]()
+
+2. Desenvolvimento
+==================
+
+
+
+
+The author names and affiliations could be formatted in two ways:
+
+(1) Group the authors per affiliation.
+
+(2) Use footnotes to indicate the affiliations.
+
+See the front matter of this document for examples. You are recommended
+to conform your choice to the journal you are submitting to.
+
+Bibliography styles
+===================
+
+There are various bibliography styles available. You can select the
+style of your choice in the preamble of this document. These styles are
+Elsevier styles based on standard styles like Harvard and Vancouver.
+Please use BibTeX to generate your bibliography and include DOIs
+whenever available.
+
+Here are two sample references: @Feynman1963118 [@Dirac1953888].
+
+References {#references .unnumbered}
+==========
